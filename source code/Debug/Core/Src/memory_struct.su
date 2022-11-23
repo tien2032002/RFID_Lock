@@ -1,0 +1,17 @@
+memory_struct.c:10:9:largerID	24	static
+memory_struct.c:18:9:equalID	24	static
+memory_struct.c:26:6:duplicateID	24	static
+memory_struct.c:35:6:inorder_rec	16	static
+memory_struct.c:44:6:inorder	8	static
+memory_struct.c:48:14:newNode	24	static
+memory_struct.c:60:14:minValueNode	24	static
+memory_struct.c:71:14:insert_rec	16	static
+memory_struct.c:87:14:insert	16	static
+memory_struct.c:91:14:search_rec	16	static
+memory_struct.c:105:9:search	16	static
+memory_struct.c:111:14:deleteNode_rec	32	static
+memory_struct.c:161:14:deleteNode	16	static
+memory_struct.c:165:9:add_new_card	16	static
+memory_struct.c:176:6:deleteTree_rec	16	static
+memory_struct.c:188:9:delete_card	16	static
+memory_struct.c:199:9:set_admin	16	static
