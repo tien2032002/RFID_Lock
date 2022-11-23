@@ -7,24 +7,31 @@
 
 #include "stm32f1xx_hal.h"
 #include "rc522.h"
-
+#include "main.h"
 
 static void MFRC522_WriteRegister(MFRC522_Name* MFRC522, uint8_t addr, uint8_t val)
 {
-	uint8_t Address = (addr << 1) & 0x7E;
+	uint8_t Address = (addr) & 0x3F;
 	//Send address
-	HAL_UART_Transmit(MFRC522->UART, &Address, 1, 10);
+	HAL_UART_Transmit(MFRC522->UART, &Address, 1, 1000);
+	uint8_t Address_recv;
+	HAL_UART_Receive(MFRC522->UART, &Address_recv, 1, 1000);
+	if (Address==Address_recv){
+		HAL_GPIO_TogglePin(LOCK_SIGNAL_GPIO_Port, LOCK_SIGNAL_Pin);
+			HAL_Delay(1000);
+	}
 	//Send data
-	HAL_UART_Transmit(MFRC522->UART, &val, 1, 10);
+	HAL_UART_Transmit(MFRC522->UART, &val, 1, 1000);
+
 }
 
 static uint8_t MFRC522_ReadRegister(MFRC522_Name* MFRC522, uint8_t addr)
 {
 	uint8_t Value;
-	uint8_t Address = ((addr << 1) & 0x7E)|0x80;
+	uint8_t Address = ((addr) & 0x7F)|0x80;
 
-	HAL_UART_Transmit(MFRC522->UART, &Address, 1, 10);
-	HAL_UART_Receive(MFRC522->UART, &Value, 1, 10);
+	HAL_UART_Transmit(MFRC522->UART, &Address, 1, 1000);
+	HAL_UART_Receive(MFRC522->UART, &Value, 1, 1000);
 
 
 	return Value;
@@ -39,7 +46,7 @@ static void MFRC522_ClearBitMask(MFRC522_Name* MFRC522, uint8_t reg, uint8_t mas
 {
 	MFRC522_WriteRegister(MFRC522, reg, MFRC522_ReadRegister(MFRC522, reg) & (~mask));
 }
-static void MFRC522_AntennaOn(MFRC522_Name* MFRC522)
+void MFRC522_AntennaOn(MFRC522_Name* MFRC522)
 {
 	uint8_t temp;
 
@@ -47,6 +54,7 @@ static void MFRC522_AntennaOn(MFRC522_Name* MFRC522)
 	if (!(temp & 0x03)) {
 		MFRC522_SetBitMask(MFRC522, MFRC522_REG_TX_CONTROL, 0x03);
 	}
+
 }
 
 void MFRC522_AntennaOff(MFRC522_Name* MFRC522)
@@ -65,6 +73,7 @@ void MFRC522_Init(MFRC522_Name* MFRC522, UART_HandleTypeDef* UART_In)
 	MFRC522_Reset(MFRC522);
 
 	MFRC522_WriteRegister(MFRC522, MFRC522_REG_T_MODE, 0x8D);
+
 	MFRC522_WriteRegister(MFRC522, MFRC522_REG_T_PRESCALER, 0x3E);
 	MFRC522_WriteRegister(MFRC522, MFRC522_REG_T_RELOAD_L, 30);
 	MFRC522_WriteRegister(MFRC522, MFRC522_REG_T_RELOAD_H, 0);
@@ -115,7 +124,6 @@ MFRC522_Status_t MFRC522_Request(MFRC522_Name* MFRC522, uint8_t reqMode, uint8_t
 	if ((status != MI_OK) || (backBits != 0x10)) {
 		status = MI_ERR;
 	}
-
 	return status;
 }
 MFRC522_Status_t MFRC522_ToCard(MFRC522_Name* MFRC522, uint8_t command, uint8_t* sendData, uint8_t sendLen, uint8_t* backData, uint16_t* backLen)
@@ -143,6 +151,7 @@ MFRC522_Status_t MFRC522_ToCard(MFRC522_Name* MFRC522, uint8_t command, uint8_t*
 	}
 
 	MFRC522_WriteRegister(MFRC522, MFRC522_REG_COMM_IE_N, irqEn | 0x80);
+
 	MFRC522_ClearBitMask(MFRC522, MFRC522_REG_COMM_IRQ, 0x80);
 	MFRC522_SetBitMask(MFRC522, MFRC522_REG_FIFO_LEVEL, 0x80);
 
@@ -208,6 +217,7 @@ MFRC522_Status_t MFRC522_ToCard(MFRC522_Name* MFRC522, uint8_t command, uint8_t*
 
 MFRC522_Status_t MFRC522_Anticoll(MFRC522_Name* MFRC522, uint8_t* serNum)
 {
+
 	MFRC522_Status_t status;
 	uint8_t i;
 	uint8_t serNumCheck = 0;

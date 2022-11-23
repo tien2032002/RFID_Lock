@@ -98,11 +98,6 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	if (MFRC522_Check(&RFID, RFID.CardID)==MI_OK) {//đ�?c thẻ
-		//TODO
-		HAL_GPIO_TogglePin(LOCK_SIGNAL_GPIO_Port, LOCK_SIGNAL_Pin);
-		HAL_Delay(1000);
-	}
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

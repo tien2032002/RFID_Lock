@@ -132,6 +132,6 @@ MFRC522_Status_t MFRC522_Auth(MFRC522_Name* MFRC522, uint8_t authMode, uint8_t B
 MFRC522_Status_t MFRC522_Read(MFRC522_Name* MFRC522, uint8_t blockAddr, uint8_t* recvData);
 MFRC522_Status_t MFRC522_Write(MFRC522_Name* MFRC522, uint8_t blockAddr, uint8_t* writeData);
 void MFRC522_Halt(MFRC522_Name* MFRC522);
-
+void MFRC522_AntennaOn(MFRC522_Name* MFRC522);
 
 #endif /* INC_RC522_H_ */
