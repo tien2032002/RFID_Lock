@@ -133,5 +133,7 @@ MFRC522_Status_t MFRC522_Read(MFRC522_Name* MFRC522, uint8_t blockAddr, uint8_t*
 MFRC522_Status_t MFRC522_Write(MFRC522_Name* MFRC522, uint8_t blockAddr, uint8_t* writeData);
 void MFRC522_Halt(MFRC522_Name* MFRC522);
 void MFRC522_AntennaOn(MFRC522_Name* MFRC522);
+void MFRC522_WriteRegister(MFRC522_Name* MFRC522, uint8_t addr, uint8_t val);
+uint8_t MFRC522_ReadRegister(MFRC522_Name* MFRC522, uint8_t addr);
 
 #endif /* INC_RC522_H_ */

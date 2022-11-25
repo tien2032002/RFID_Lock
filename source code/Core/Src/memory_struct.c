@@ -7,6 +7,14 @@
 struct node* admin=NULL;
 struct node* root=NULL;
 
+uint8_t equalZero(uint8_t* CardID1) {
+	uint8_t i;
+	for (i = 0; i < 5; i++) {
+		if (CardID1[i]!=0) return 0;
+	}
+	return 1;
+}
+
 uint8_t largerID(uint8_t* CardID1, uint8_t* CardID2) {
 	uint8_t i;
 	for (i = 0; i < 5; i++) {

@@ -10,7 +10,7 @@
 #include "button.h"
 #include "software_timer.h"
 #include "main.h"
-#include "rc522.h"
+#include "memory_struct.h"
 
 
 
@@ -23,7 +23,14 @@ void fsm_run() {
 		//quet the admin va luu vao bo nho
 		//sau khi co the duoc quet , thay doi state
 		//admin_id=reader();
-		state=UNLOCK;
+		if (flagForButtonPress[REG_IDX]==1) {
+			flagForButtonPress[REG_IDX]=0;
+			if (equalZero(CARD_BUF)==0) {
+				set_admin(CARD_BUF);
+				state=UNLOCK;
+			}
+
+		}
 		break;
 	case UNLOCK:
 		//dua ra tin hieu mo cua
@@ -46,6 +53,9 @@ void fsm_run() {
 		}
 
 		//quet the
+		if (search(CARD_BUF)==1) {
+			state=LOCK;
+		}
 		/*if (the duoc quet da duoc dang ki) {
 			state=LOCK;
 		}*/
@@ -60,9 +70,14 @@ void fsm_run() {
 			state=UNLOCK;
 		}
 		//quet the
+		if (search(CARD_BUF)==1) {
+			state=UNLOCK;
+		}
+		else state=WRONG1;
 		/*if (the duoc quet da duoc dang ki) {
 			state=UNLOCK;
 		}
+
 		else {
 			state=WRONG1;
 		}*/

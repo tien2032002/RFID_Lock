@@ -1,5 +1,4 @@
-Core/Src/fsm.o: ../Core/Src/fsm.c ../Core/Inc/global.h ../Core/Inc/fsm.h \
- ../Core/Inc/button.h ../Core/Inc/main.h \
+Core/Src/fsm.o: ../Core/Src/fsm.c ../Core/Inc/global.h ../Core/Inc/main.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal.h \
  ../Core/Inc/stm32f1xx_hal_conf.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_rcc.h \
@@ -23,13 +22,10 @@ Core/Src/fsm.o: ../Core/Src/fsm.c ../Core/Inc/global.h ../Core/Inc/fsm.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_flash_ex.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_pwr.h \
  ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h \
- ../Core/Inc/software_timer.h ../Core/Inc/main.h ../Core/Inc/rc522.h
+ ../Core/Inc/fsm.h ../Core/Inc/button.h ../Core/Inc/software_timer.h \
+ ../Core/Inc/main.h ../Core/Inc/memory_struct.h
 
 ../Core/Inc/global.h:
-
-../Core/Inc/fsm.h:
-
-../Core/Inc/button.h:
 
 ../Core/Inc/main.h:
 
@@ -79,8 +75,12 @@ Core/Src/fsm.o: ../Core/Src/fsm.c ../Core/Inc/global.h ../Core/Inc/fsm.h \
 
 ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h:
 
+../Core/Inc/fsm.h:
+
+../Core/Inc/button.h:
+
 ../Core/Inc/software_timer.h:
 
 ../Core/Inc/main.h:
 
-../Core/Inc/rc522.h:
+../Core/Inc/memory_struct.h:

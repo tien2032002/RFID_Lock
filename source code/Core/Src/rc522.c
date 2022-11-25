@@ -9,26 +9,23 @@
 #include "rc522.h"
 #include "main.h"
 
-static void MFRC522_WriteRegister(MFRC522_Name* MFRC522, uint8_t addr, uint8_t val)
+void MFRC522_WriteRegister(MFRC522_Name* MFRC522, uint8_t addr, uint8_t val)
 {
 	uint8_t Address = (addr) & 0x3F;
 	//Send address
 	HAL_UART_Transmit(MFRC522->UART, &Address, 1, 1000);
 	uint8_t Address_recv;
 	HAL_UART_Receive(MFRC522->UART, &Address_recv, 1, 1000);
-	if (Address==Address_recv){
-		HAL_GPIO_TogglePin(LOCK_SIGNAL_GPIO_Port, LOCK_SIGNAL_Pin);
-			HAL_Delay(1000);
-	}
+
 	//Send data
 	HAL_UART_Transmit(MFRC522->UART, &val, 1, 1000);
 
 }
 
-static uint8_t MFRC522_ReadRegister(MFRC522_Name* MFRC522, uint8_t addr)
+uint8_t MFRC522_ReadRegister(MFRC522_Name* MFRC522, uint8_t addr)
 {
 	uint8_t Value;
-	uint8_t Address = ((addr) & 0x7F)|0x80;
+	uint8_t Address = ((addr) & 0x3F)|0x80;
 
 	HAL_UART_Transmit(MFRC522->UART, &Address, 1, 1000);
 	HAL_UART_Receive(MFRC522->UART, &Value, 1, 1000);

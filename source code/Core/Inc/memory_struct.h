@@ -33,8 +33,7 @@ uint8_t delete_card(uint8_t* admin_key);
 
 uint8_t set_admin(uint8_t *ID);
 
-
-
+uint8_t equalZero(uint8_t* CardID1);
 
   
 

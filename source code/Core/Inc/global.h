@@ -8,6 +8,7 @@
 #ifndef INC_GLOBAL_H_
 #define INC_GLOBAL_H_
 
+#include "main.h"
 
 //trang thai
 #define INIT		0 //khoi tao
@@ -21,6 +22,8 @@
 
 //
 #define BUZZER_TIME 500
+
+extern uint8_t CARD_BUF[5];
 
 
 #endif /* INC_GLOBAL_H_ */

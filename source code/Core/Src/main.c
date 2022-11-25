@@ -67,6 +67,7 @@ static void MX_USART2_UART_Init(void);
   */
 int main(void)
 {
+	HAL_GPIO_WritePin(BUZZER_GPIO_Port, BUZZER_Pin, 1);
   /* USER CODE BEGIN 1 */
 
   /* USER CODE END 1 */
@@ -98,6 +99,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -192,7 +194,7 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(LOCK_SIGNAL_GPIO_Port, LOCK_SIGNAL_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(BUZZER_GPIO_Port, BUZZER_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(BUZZER_GPIO_Port, BUZZER_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin : LOCK_SIGNAL_Pin */
   GPIO_InitStruct.Pin = LOCK_SIGNAL_Pin;
@@ -204,7 +206,7 @@ static void MX_GPIO_Init(void)
   /*Configure GPIO pin : BUZZER_Pin */
   GPIO_InitStruct.Pin = BUZZER_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  GPIO_InitStruct.Pull = GPIO_PULLUP;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(BUZZER_GPIO_Port, &GPIO_InitStruct);
 
